@@ -1,6 +1,11 @@
 "use client";
 
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
+import {
+  iniciarSesion,
+  registrarUsuarioNuevo,
+  usuarioExiste,
+} from "@/lib/alumno-storage";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
@@ -8,12 +13,47 @@ import { FormEvent, useState } from "react";
 export default function Home() {
   const router = useRouter();
   const [nombre, setNombre] = useState("");
+  const [pin, setPin] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setError("");
+
     const nombreLimpio = nombre.trim();
-    if (!nombreLimpio) return;
-    router.push(`/alumno?user=${encodeURIComponent(nombreLimpio)}`);
+    const pinLimpio = pin.replace(/\D/g, "");
+
+    if (!nombreLimpio) {
+      setError("Ingresa tu nombre de usuario.");
+      return;
+    }
+    if (pinLimpio.length !== 4) {
+      setError("El PIN debe tener exactamente 4 dígitos.");
+      return;
+    }
+
+    if (!usuarioExiste(nombreLimpio)) {
+      registrarUsuarioNuevo(nombreLimpio, pinLimpio);
+      router.push("/cuestionario");
+      return;
+    }
+
+    const sesion = iniciarSesion(nombreLimpio, pinLimpio);
+    if (!sesion) {
+      setError("PIN incorrecto. Verifica e intenta de nuevo.");
+      return;
+    }
+
+    if (!sesion.cuestionarioCompletado) {
+      router.push("/cuestionario");
+      return;
+    }
+
+    router.push("/alumno");
+  };
+
+  const handlePinChange = (value: string) => {
+    setPin(value.replace(/\D/g, "").slice(0, 4));
   };
 
   return (
@@ -30,34 +70,61 @@ export default function Home() {
             Selah Keys: Escuela de Piano para Ministerios de Alabanza
           </h1>
           <p className="mx-auto max-w-md text-pretty text-sm text-slate-600 sm:text-base dark:text-zinc-300">
-            Ingresa tu nombre para acceder a tu ruta de aprendizaje gamificada y
-            retos semanales del ministerio.
+            Crea tu cuenta local o ingresa con tu PIN de 4 dígitos para continuar
+            tu progreso guardado.
           </p>
         </header>
 
         <section className="w-full rounded-2xl border border-slate-200/80 bg-white p-8 shadow-xl shadow-slate-200/50 backdrop-blur transition-all duration-300 hover:border-fuchsia-300/60 dark:border-zinc-800 dark:bg-zinc-900/70 dark:shadow-[0_0_0_1px_rgba(255,255,255,0.03),0_20px_60px_rgba(0,0,0,0.35)] dark:hover:border-fuchsia-400/30">
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             <div>
-              <label
-                htmlFor="nombre-usuario"
-                className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-zinc-500"
-              >
+              <label htmlFor="nombre-usuario" className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-zinc-500">
                 Nombre de usuario
               </label>
               <input
                 id="nombre-usuario"
                 type="text"
                 value={nombre}
-                onChange={(event) => setNombre(event.target.value)}
+                onChange={(e) => setNombre(e.target.value)}
                 placeholder="Ej. Carlos, Shoshanna..."
                 autoComplete="username"
                 className="mt-2 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-zinc-900 placeholder:text-slate-400 outline-none transition-all duration-300 focus:border-fuchsia-400 focus:ring-2 focus:ring-fuchsia-500/15 dark:border-zinc-800 dark:bg-zinc-950/60 dark:text-zinc-100 dark:placeholder:text-zinc-600 dark:focus:border-fuchsia-500/50"
               />
             </div>
 
+            <div>
+              <label htmlFor="pin-usuario" className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-zinc-500">
+                Contraseña (PIN de 4 dígitos)
+              </label>
+              <input
+                id="pin-usuario"
+                type="password"
+                inputMode="numeric"
+                maxLength={4}
+                value={pin}
+                onChange={(e) => handlePinChange(e.target.value)}
+                placeholder="••••"
+                autoComplete="current-password"
+                className="mt-2 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-center text-lg tracking-[0.5em] text-zinc-900 placeholder:tracking-normal placeholder:text-slate-400 outline-none transition-all duration-300 focus:border-fuchsia-400 focus:ring-2 focus:ring-fuchsia-500/15 dark:border-zinc-800 dark:bg-zinc-950/60 dark:text-zinc-100 dark:placeholder:text-zinc-600 dark:focus:border-fuchsia-500/50"
+              />
+              <p className="mt-1.5 text-xs text-slate-500 dark:text-zinc-600">
+                Si eres nuevo, se creará tu cuenta y completarás un cuestionario
+                inicial.
+              </p>
+            </div>
+
+            {error && (
+              <p
+                className="rounded-xl border border-rose-500/30 bg-rose-500/10 px-4 py-3 text-sm text-rose-700 dark:text-rose-200"
+                role="alert"
+              >
+                {error}
+              </p>
+            )}
+
             <button
               type="submit"
-              disabled={!nombre.trim()}
+              disabled={!nombre.trim() || pin.length !== 4}
               className="w-full rounded-full bg-gradient-to-r from-fuchsia-500 to-violet-500 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-fuchsia-500/20 transition-all duration-300 hover:scale-105 hover:from-fuchsia-400 hover:to-violet-400 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100"
             >
               Entrar al Ministerio
