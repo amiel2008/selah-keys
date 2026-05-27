@@ -1,5 +1,6 @@
 "use client";
 
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -153,10 +154,10 @@ const estadoNivelStyles: Record<
     dot: "bg-sky-400 animate-pulse",
   },
   bloqueado: {
-    ring: "ring-zinc-700/80",
-    badge: "bg-zinc-800/80 text-zinc-500 ring-zinc-700/80",
+    ring: "ring-slate-300/80 dark:ring-zinc-700/80",
+    badge: "bg-slate-100 text-slate-500 ring-slate-300/80 dark:bg-zinc-800/80 dark:text-zinc-500 dark:ring-zinc-700/80",
     badgeText: "Próximamente",
-    dot: "bg-zinc-600",
+    dot: "bg-slate-400 dark:bg-zinc-600",
   },
 };
 
@@ -186,13 +187,14 @@ export default function MaestroPage() {
   const amigoActivo = amigos.find((a) => a.id === amigoSeleccionado);
 
   return (
-    <div className="min-h-full bg-zinc-950 text-zinc-100">
-      <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_10%_0%,rgba(56,189,248,0.1),transparent_42%),radial-gradient(circle_at_90%_20%,rgba(167,139,250,0.08),transparent_40%),radial-gradient(circle_at_50%_100%,rgba(16,185,129,0.06),transparent_35%)]" />
+    <div className="min-h-full bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
+      <ThemeToggle />
+      <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_10%_0%,rgba(56,189,248,0.06),transparent_42%),radial-gradient(circle_at_90%_20%,rgba(167,139,250,0.05),transparent_40%)] dark:bg-[radial-gradient(circle_at_10%_0%,rgba(56,189,248,0.1),transparent_42%),radial-gradient(circle_at_90%_20%,rgba(167,139,250,0.08),transparent_40%),radial-gradient(circle_at_50%_100%,rgba(16,185,129,0.06),transparent_35%)]" />
 
       <main className="relative z-10 mx-auto flex max-w-6xl flex-col gap-10 px-4 py-10 sm:px-6 lg:py-12">
         <Link
           href="/"
-          className="inline-flex w-fit items-center rounded-full border border-zinc-800 bg-zinc-900/50 px-3.5 py-1.5 text-sm text-zinc-500 transition hover:border-zinc-700 hover:text-zinc-200"
+          className="inline-flex w-fit items-center rounded-full border border-slate-200/80 bg-white px-3.5 py-1.5 text-sm text-slate-600 shadow-sm shadow-slate-200/40 transition-all duration-300 hover:scale-105 hover:border-slate-300 hover:text-slate-900 dark:border-zinc-800 dark:bg-zinc-900/50 dark:text-zinc-500 dark:shadow-none dark:hover:border-zinc-700 dark:hover:text-zinc-200"
         >
           ← Volver al Inicio
         </Link>
@@ -203,31 +205,31 @@ export default function MaestroPage() {
             <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-violet-300/80">
               Método Selah Keys
             </p>
-            <h1 className="mt-2 text-balance text-3xl font-bold tracking-tight text-zinc-50 sm:text-4xl">
+            <h1 className="mt-2 text-balance bg-gradient-to-r from-slate-800 to-slate-900 bg-clip-text text-3xl font-bold tracking-tight text-transparent sm:text-4xl dark:from-zinc-50 dark:to-zinc-200">
               Panel del Maestro — Piano Creativo para Principiantes
             </h1>
-            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-zinc-400 sm:text-base">
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600 sm:text-base dark:text-zinc-400">
               Enseña a tus amigos desde cero con un camino visual, retos
               divertidos y seguimiento gamificado. Sin abrumar con teoría: primero
               suena, luego se entiende.
             </p>
           </div>
-          <div className="flex shrink-0 items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/60 px-4 py-2 text-sm">
+          <div className="flex shrink-0 items-center gap-2 rounded-full border border-slate-200/80 bg-white px-4 py-2 text-sm shadow-sm shadow-slate-200/40 dark:border-zinc-800 dark:bg-zinc-900/60 dark:shadow-none">
             <span className="text-lg">🎹</span>
-            <span className="font-medium text-zinc-300">
+            <span className="font-medium text-slate-700 dark:text-zinc-300">
               {amigos.length} amigos aprendiendo
             </span>
           </div>
         </header>
 
         {/* 1. Ruta de aprendizaje creativo */}
-        <section className="rounded-2xl border border-zinc-800/90 bg-zinc-900/40 p-5 shadow-[0_0_0_1px_rgba(255,255,255,0.02)] backdrop-blur sm:p-6">
+        <section className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xl shadow-slate-200/50 backdrop-blur dark:border-zinc-800/90 dark:bg-zinc-900/40 dark:shadow-[0_0_0_1px_rgba(255,255,255,0.02)] sm:p-6">
           <div className="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <h2 className="text-lg font-semibold text-zinc-50">
+              <h2 className="text-lg font-semibold text-slate-900 dark:text-zinc-50">
                 Ruta de Aprendizaje Creativo
               </h2>
-              <p className="mt-1 text-sm text-zinc-500">
+              <p className="mt-1 text-sm text-slate-600 dark:text-zinc-500">
                 El método paso a paso — desbloquea niveles como en un videojuego.
               </p>
             </div>
@@ -250,7 +252,7 @@ export default function MaestroPage() {
                 return (
                   <li
                     key={nivel.nivel}
-                    className={`group relative flex gap-4 rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4 ring-1 transition duration-300 sm:gap-5 sm:p-5 ${styles.ring} ${isLocked ? "opacity-70" : "hover:bg-zinc-900/50"}`}
+                    className={`group relative flex gap-4 rounded-xl border border-slate-200/80 bg-slate-50 p-4 ring-1 transition duration-300 sm:gap-5 sm:p-5 dark:border-zinc-800/80 dark:bg-zinc-950/40 ${styles.ring} ${isLocked ? "opacity-70" : "hover:bg-slate-100 dark:hover:bg-zinc-900/50"}`}
                   >
                     <div className="relative z-10 flex shrink-0 flex-col items-center gap-2">
                       <div
@@ -270,10 +272,10 @@ export default function MaestroPage() {
                             {nivel.emoji}
                           </span>
                           <div>
-                            <p className="text-[11px] font-semibold uppercase tracking-wide text-zinc-500">
+                            <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-zinc-500">
                               Nivel {nivel.nivel}
                             </p>
-                            <h3 className="text-base font-semibold text-zinc-50 sm:text-lg">
+                            <h3 className="text-base font-semibold text-slate-900 sm:text-lg dark:text-zinc-50">
                               {nivel.titulo}
                             </h3>
                             <p className="text-xs font-medium text-violet-300/90">
@@ -287,7 +289,7 @@ export default function MaestroPage() {
                           {styles.badgeText}
                         </span>
                       </div>
-                      <p className="mt-3 text-sm leading-relaxed text-zinc-400">
+                      <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-zinc-400">
                         {nivel.descripcion}
                       </p>
                       {nivel.estado === "activo" && (
@@ -305,14 +307,14 @@ export default function MaestroPage() {
         </section>
 
         {/* 2. Panel de seguimiento gamificado */}
-        <section className="rounded-2xl border border-zinc-800/90 bg-zinc-900/40 shadow-[0_0_0_1px_rgba(255,255,255,0.02)] backdrop-blur">
-          <div className="border-b border-zinc-800/80 px-5 py-4 sm:px-6">
+        <section className="rounded-2xl border border-slate-200/80 bg-white shadow-xl shadow-slate-200/50 backdrop-blur dark:border-zinc-800/90 dark:bg-zinc-900/40 dark:shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
+          <div className="border-b border-slate-200/80 px-5 py-4 dark:border-zinc-800/80 sm:px-6">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <h2 className="text-lg font-semibold text-zinc-50">
+                <h2 className="text-lg font-semibold text-slate-900 dark:text-zinc-50">
                   Panel de Seguimiento de Amigos
                 </h2>
-                <p className="mt-1 text-sm text-zinc-500">
+                <p className="mt-1 text-sm text-slate-600 dark:text-zinc-500">
                   Retos activos, fluidez y bloqueos creativos — todo en un vistazo.
                 </p>
               </div>
@@ -325,7 +327,7 @@ export default function MaestroPage() {
                     className={`rounded-full px-3 py-1.5 text-xs font-semibold transition ${
                       amigoSeleccionado === a.id
                         ? "bg-violet-500/20 text-violet-100 ring-1 ring-violet-400/40"
-                        : "bg-zinc-800/60 text-zinc-400 hover:text-zinc-200"
+                        : "bg-slate-100 text-slate-600 hover:text-slate-900 dark:bg-zinc-800/60 dark:text-zinc-400 dark:hover:text-zinc-200"
                     }`}
                   >
                     {a.nombre}
@@ -336,18 +338,18 @@ export default function MaestroPage() {
           </div>
 
           {amigoActivo && (
-            <div className="border-b border-zinc-800/60 bg-gradient-to-r from-violet-500/5 to-transparent px-5 py-4 sm:px-6">
-              <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+            <div className="border-b border-slate-200/60 bg-gradient-to-r from-violet-500/5 to-transparent px-5 py-4 dark:border-zinc-800/60 sm:px-6">
+              <p className="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-zinc-500">
                 Vista rápida — {amigoActivo.nombre}
               </p>
               <div className="mt-2 flex flex-wrap items-center gap-4">
                 <div className="flex items-center gap-2">
-                  <span className="text-2xl font-bold tabular-nums text-zinc-50">
+                  <span className="text-2xl font-bold tabular-nums text-slate-900 dark:text-zinc-50">
                     {amigoActivo.fluidez}%
                   </span>
                   <span className="text-xs text-zinc-500">fluidez</span>
                 </div>
-                <span className="rounded-full bg-zinc-800/80 px-2.5 py-1 text-xs text-zinc-400">
+                <span className="rounded-full bg-slate-200/80 px-2.5 py-1 text-xs text-slate-600 dark:bg-zinc-800/80 dark:text-zinc-400">
                   Nivel {amigoActivo.nivelActual} del método
                 </span>
                 <span
@@ -362,27 +364,27 @@ export default function MaestroPage() {
           <div className="overflow-x-auto">
             <table className="w-full min-w-[780px] text-left text-sm">
               <thead>
-                <tr className="border-b border-zinc-800/90 bg-zinc-950/40">
-                  <th className="whitespace-nowrap px-5 py-3 text-xs font-semibold uppercase tracking-wide text-zinc-500 sm:px-6">
+                <tr className="border-b border-slate-200/90 bg-slate-50/80 dark:border-zinc-800/90 dark:bg-zinc-950/40">
+                  <th className="whitespace-nowrap px-5 py-3 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-zinc-500 sm:px-6">
                     Nombre del amigo
                   </th>
-                  <th className="min-w-[220px] px-4 py-3 text-xs font-semibold uppercase tracking-wide text-zinc-500">
+                  <th className="min-w-[220px] px-4 py-3 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-zinc-500">
                     Reto activo
                   </th>
-                  <th className="min-w-[160px] px-4 py-3 text-xs font-semibold uppercase tracking-wide text-zinc-500">
+                  <th className="min-w-[160px] px-4 py-3 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-zinc-500">
                     Barra de fluidez
                   </th>
-                  <th className="min-w-[240px] px-5 py-3 text-xs font-semibold uppercase tracking-wide text-zinc-500 sm:px-6">
+                  <th className="min-w-[240px] px-5 py-3 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-zinc-500 sm:px-6">
                     Bloqueo creativo actual
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-zinc-800/80">
+              <tbody className="divide-y divide-slate-200/80 dark:divide-zinc-800/80">
                 {amigos.map((amigo) => (
                   <tr
                     key={amigo.id}
                     onClick={() => setAmigoSeleccionado(amigo.id)}
-                    className={`cursor-pointer align-top transition hover:bg-zinc-800/20 ${amigoSeleccionado === amigo.id ? "bg-violet-500/5" : ""}`}
+                    className={`cursor-pointer align-top transition hover:bg-slate-100 dark:hover:bg-zinc-800/20 ${amigoSeleccionado === amigo.id ? "bg-violet-500/10 dark:bg-violet-500/5" : ""}`}
                   >
                     <td className="whitespace-nowrap px-5 py-4 sm:px-6">
                       <div className="flex items-center gap-3">
@@ -390,7 +392,7 @@ export default function MaestroPage() {
                           {amigo.nombre.charAt(0)}
                         </div>
                         <div>
-                          <p className="font-semibold text-zinc-100">
+                          <p className="font-semibold text-slate-900 dark:text-zinc-100">
                             {amigo.nombre}
                           </p>
                           <p className="text-xs text-zinc-500">
@@ -400,21 +402,21 @@ export default function MaestroPage() {
                       </div>
                     </td>
                     <td className="px-4 py-4">
-                      <span className="inline-flex rounded-lg bg-zinc-800/60 px-2.5 py-1.5 text-xs font-medium leading-snug text-zinc-300 ring-1 ring-zinc-700/80">
+                      <span className="inline-flex rounded-lg bg-slate-100 px-2.5 py-1.5 text-xs font-medium leading-snug text-slate-700 ring-1 ring-slate-200/80 dark:bg-zinc-800/60 dark:text-zinc-300 dark:ring-zinc-700/80">
                         {amigo.retoActivo}
                       </span>
                     </td>
                     <td className="px-4 py-4">
                       <div className="flex flex-col gap-1.5">
                         <div className="flex items-center justify-between gap-2">
-                          <span className="text-xs font-semibold tabular-nums text-zinc-300">
+                          <span className="text-xs font-semibold tabular-nums text-slate-700 dark:text-zinc-300">
                             {amigo.fluidez}%
                           </span>
                           <span className="text-[10px] text-zinc-600">
                             {fluidezLabel(amigo.fluidez)}
                           </span>
                         </div>
-                        <div className="h-2 overflow-hidden rounded-full bg-zinc-800">
+                        <div className="h-2 overflow-hidden rounded-full bg-slate-200 dark:bg-zinc-800">
                           <div
                             className={`h-full rounded-full bg-gradient-to-r transition-all duration-500 ${fluidezColor(amigo.fluidez)}`}
                             style={{ width: `${amigo.fluidez}%` }}
@@ -436,7 +438,7 @@ export default function MaestroPage() {
                         }}
                         onClick={(e) => e.stopPropagation()}
                         rows={2}
-                        className="w-full resize-none rounded-lg border border-zinc-800 bg-zinc-950/50 px-3 py-2 text-xs leading-relaxed text-zinc-300 outline-none transition focus:border-violet-500/40 focus:ring-2 focus:ring-violet-500/15"
+                        className="w-full resize-none rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs leading-relaxed text-slate-700 outline-none transition focus:border-violet-500/40 focus:ring-2 focus:ring-violet-500/15 dark:border-zinc-800 dark:bg-zinc-950/50 dark:text-zinc-300"
                         placeholder="¿Qué le cuesta entender hoy?"
                       />
                     </td>
@@ -448,13 +450,13 @@ export default function MaestroPage() {
         </section>
 
         {/* 3. Generador de retos caseros */}
-        <section className="rounded-2xl border border-zinc-800/90 bg-zinc-900/35 p-5 shadow-[0_0_0_1px_rgba(255,255,255,0.02)] backdrop-blur sm:p-6">
-          <div className="flex flex-col gap-2 border-b border-zinc-800/80 pb-5 sm:flex-row sm:items-end sm:justify-between">
+        <section className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xl shadow-slate-200/50 backdrop-blur dark:border-zinc-800/90 dark:bg-zinc-900/35 dark:shadow-[0_0_0_1px_rgba(255,255,255,0.02)] sm:p-6">
+          <div className="flex flex-col gap-2 border-b border-slate-200/80 pb-5 dark:border-zinc-800/80 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <h2 className="text-lg font-semibold text-zinc-50">
+              <h2 className="text-lg font-semibold text-slate-900 dark:text-zinc-50">
                 Generador de Retos Caseros
               </h2>
-              <p className="mt-1 text-sm text-zinc-500">
+              <p className="mt-1 text-sm text-slate-600 dark:text-zinc-500">
                 Creador de desafíos — asigna tareas divertidas con un clic.
               </p>
             </div>
@@ -474,7 +476,7 @@ export default function MaestroPage() {
               return (
                 <article
                   key={reto.id}
-                  className={`group relative overflow-hidden rounded-xl border border-zinc-800/90 bg-gradient-to-br ${reto.color} p-5 ring-1 transition duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/20`}
+                  className={`group relative overflow-hidden rounded-xl border border-slate-200/80 bg-gradient-to-br p-5 ring-1 transition duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-slate-200/50 dark:border-zinc-800/90 dark:hover:shadow-black/20 ${reto.color}`}
                 >
                   <div className="flex items-start justify-between gap-3">
                     <span className="text-3xl" aria-hidden>
@@ -484,7 +486,7 @@ export default function MaestroPage() {
                       {reto.dificultad}
                     </span>
                   </div>
-                  <h3 className="mt-3 text-base font-semibold text-zinc-50">
+                  <h3 className="mt-3 text-base font-semibold text-slate-900 dark:text-zinc-50">
                     {reto.titulo}
                   </h3>
                   <p className="mt-2 text-sm leading-relaxed text-zinc-400">
@@ -500,7 +502,7 @@ export default function MaestroPage() {
                     className={`mt-4 w-full rounded-full px-4 py-2.5 text-sm font-semibold transition ${
                       asignado
                         ? "cursor-default bg-emerald-500/20 text-emerald-200 ring-1 ring-emerald-400/30"
-                        : "bg-zinc-100 text-zinc-950 hover:bg-white active:scale-[0.98]"
+                        : "bg-slate-900 text-white hover:bg-slate-800 active:scale-[0.98] dark:bg-zinc-100 dark:text-zinc-950 dark:hover:bg-white"
                     }`}
                   >
                     {asignado
@@ -523,7 +525,7 @@ export default function MaestroPage() {
                   return r ? (
                     <li
                       key={id}
-                      className="rounded-full bg-zinc-900/80 px-3 py-1 text-xs font-medium text-zinc-300 ring-1 ring-zinc-700/80"
+                      className="rounded-full bg-white/80 px-3 py-1 text-xs font-medium text-slate-700 ring-1 ring-slate-200/80 dark:bg-zinc-900/80 dark:text-zinc-300 dark:ring-zinc-700/80"
                     >
                       {r.emoji} {r.titulo}
                     </li>
