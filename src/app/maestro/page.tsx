@@ -6,6 +6,11 @@ import { useState } from "react";
 
 type NivelEstado = "completado" | "activo" | "bloqueado";
 
+type CompetenciaMinisterial = {
+  nombre: string;
+  valor: number;
+};
+
 type Amigo = {
   id: string;
   nombre: string;
@@ -13,6 +18,7 @@ type Amigo = {
   fluidez: number;
   bloqueoCreativo: string;
   nivelActual: number;
+  competencias: CompetenciaMinisterial[];
 };
 
 type RetoCasa = {
@@ -28,37 +34,37 @@ type RetoCasa = {
 const nivelesMetodo = [
   {
     nivel: 1,
-    titulo: "El Mapa de las 88 Teclas",
-    subtitulo: "Ubicarse sin partituras",
+    titulo: "Topografía del Teclado",
+    subtitulo: "Ubicación espacial sin partituras",
     descripcion:
-      "Usa las teclas negras como brújula. Encuentra Do, Fa y Sol en cualquier octava antes de leer una sola nota.",
+      "Mapeo de las 88 teclas usando alteraciones como brújula. Ubicación instantánea de tónicas antes de leer cifrado.",
     emoji: "🗺️",
     estado: "completado" as NivelEstado,
   },
   {
     nivel: 2,
-    titulo: "El Truco de los 4 Acordes Mágicos",
-    subtitulo: "Do · Sol · Lam · Fa",
+    titulo: "Fundamentos de Armonía Diatónica",
+    subtitulo: "I · V · vi · IV",
     descripcion:
-      "Con cuatro acordes tocas el 80% de las canciones cristianas y pop. El objetivo: cambiar sin mirar las manos.",
+      "Dominio de progresiones base para música contemporánea. El objetivo: ejecución de inversiones sin ruptura visual.",
     emoji: "✨",
     estado: "activo" as NivelEstado,
   },
   {
     nivel: 3,
-    titulo: "Ritmo e Independencia",
-    subtitulo: "Manos con personalidad propia",
+    titulo: "Independencia y Groove",
+    subtitulo: "Disociación rítmica",
     descripcion:
-      "Ejercicios creativos para que la izquierda no copie a la derecha. Patrones de bajo + acordes en la mano derecha.",
+      "Ejercicios de disociación motriz. Síncopas en mano derecha sobre anclaje de bajos en mano izquierda.",
     emoji: "🥁",
     estado: "bloqueado" as NivelEstado,
   },
   {
     nivel: 4,
-    titulo: "Transporte Express",
-    subtitulo: "Cambiar de tono sin colapsar",
+    titulo: "Modulaciones Express",
+    subtitulo: "Transporte mental de tonalidad",
     descripcion:
-      "Usa el botón transpose o cambia mentalmente de tonalidad. Practica subir/bajar un semitono sin perder el groove.",
+      "Eliminación de la dependencia del botón transpose. Práctica de modulación de semitono ascendente sin pérdida de tempo.",
     emoji: "🚀",
     estado: "bloqueado" as NivelEstado,
   },
@@ -68,69 +74,105 @@ const amigosIniciales: Amigo[] = [
   {
     id: "carlos",
     nombre: "Carlos",
-    retoActivo: "Dominar el cambio de Do a Sol en 60 BPM",
+    retoActivo: "Dominar inversiones de I a V en 60 BPM",
     fluidez: 72,
     bloqueoCreativo:
-      "Le cuesta independizar la mano izquierda cuando el bajo va en corcheas.",
+      "Le cuesta independizar la mano izquierda cuando el bajo va en corcheas. Tiende a saturar el espacio del bajista.",
     nivelActual: 2,
+    competencias: [
+      { nombre: "Acompañamiento Congregacional", valor: 65 },
+      { nombre: "Lectura de Director", valor: 50 },
+      { nombre: "Respeto Frecuencial", valor: 30 },
+      { nombre: "Dinámicas de Intensidad", valor: 70 },
+      { nombre: "Transiciones y Modulaciones", valor: 40 },
+      { nombre: "Uso de Pads y Texturas", valor: 80 },
+      { nombre: "Anclaje de Pulso (Timing)", valor: 60 },
+      { nombre: "Independencia Ejecución", valor: 55 },
+      { nombre: "Ubicación Rápida (Cifrado)", valor: 85 },
+      { nombre: "Lenguaje Técnico", valor: 65 },
+    ],
   },
   {
     id: "charly",
     nombre: "Charly",
-    retoActivo: "Tocar Lam → Fa → Do sin pausa en el puente",
+    retoActivo: "Progresión vi → IV → I sin ruptura métrica",
     fluidez: 45,
     bloqueoCreativo:
-      "Pierde el ritmo cuando canta al mismo tiempo; necesita anclar el pulso con el pie.",
+      "Pierde la métrica al cantar simultáneamente; necesita anclar el pulso con metrónomo.",
     nivelActual: 2,
+    competencias: [
+      { nombre: "Acompañamiento Congregacional", valor: 50 },
+      { nombre: "Lectura de Director", valor: 40 },
+      { nombre: "Respeto Frecuencial", valor: 60 },
+      { nombre: "Dinámicas de Intensidad", valor: 45 },
+      { nombre: "Transiciones y Modulaciones", valor: 35 },
+      { nombre: "Uso de Pads y Texturas", valor: 55 },
+      { nombre: "Anclaje de Pulso (Timing)", valor: 30 },
+      { nombre: "Independencia Ejecución", valor: 25 },
+      { nombre: "Ubicación Rápida (Cifrado)", valor: 60 },
+      { nombre: "Lenguaje Técnico", valor: 40 },
+    ],
   },
   {
     id: "shoshanna",
     nombre: "Shoshanna",
-    retoActivo: "Ubicar Do en 3 octavas con los ojos cerrados",
+    retoActivo: "Mapeo de octavas a ciegas",
     fluidez: 88,
     bloqueoCreativo:
-      "Ya domina la ubicación; siguiente paso: acordes con inversiones suaves en el coro.",
+      "Ya domina la ubicación topográfica; requiere iniciar con inversiones cerradas para texturas de adoración.",
     nivelActual: 1,
+    competencias: [
+      { nombre: "Acompañamiento Congregacional", valor: 85 },
+      { nombre: "Lectura de Director", valor: 75 },
+      { nombre: "Respeto Frecuencial", valor: 90 },
+      { nombre: "Dinámicas de Intensidad", valor: 80 },
+      { nombre: "Transiciones y Modulaciones", valor: 60 },
+      { nombre: "Uso de Pads y Texturas", valor: 85 },
+      { nombre: "Anclaje de Pulso (Timing)", valor: 70 },
+      { nombre: "Independencia Ejecución", valor: 65 },
+      { nombre: "Ubicación Rápida (Cifrado)", valor: 95 },
+      { nombre: "Lenguaje Técnico", valor: 80 },
+    ],
   },
 ];
 
 const retosCasa: RetoCasa[] = [
   {
-    id: "manos-libres",
-    titulo: 'Desafío "Manos Libres"',
-    emoji: "🙈",
+    id: "consciencia-frecuencial",
+    titulo: 'Consciencia Frecuencial',
+    emoji: "🎛️",
     descripcion:
-      "Tocar el círculo de Do Mayor con los ojos cerrados para ganar memoria muscular y confianza en el teclado.",
+      "Tocar la progresión base sin usar la mano izquierda en registros graves. Evalúa la capacidad de dejar espacio al bajista.",
     duracion: "5 min/día",
     dificultad: "Suave",
     color: "from-emerald-500/20 to-teal-500/10 ring-emerald-400/25",
   },
   {
-    id: "metronomo-humano",
-    titulo: 'Desafío "Metrónomo Humano"',
-    emoji: "🦶",
+    id: "anclaje-metronomo",
+    titulo: 'Anclaje de Metrónomo',
+    emoji: "⏱️",
     descripcion:
-      "Mantener el pulso de una canción usando solo el pie izquierdo mientras la mano derecha hace el acorde base.",
+      "Mantener el groove de la canción sobre un click a 65 BPM apagando el metrónomo en los compases pares. Mide el tempo interno.",
     duracion: "3 canciones",
     dificultad: "Medio",
     color: "from-sky-500/20 to-blue-500/10 ring-sky-400/25",
   },
   {
-    id: "cambio-relampago",
-    titulo: 'Desafío "Cambio Relámpago"',
+    id: "transicion-ciegas",
+    titulo: 'Transición a Ciegas',
     emoji: "⚡",
     descripcion:
-      "Cambiar entre Do, Sol, Lam y Fa cada 4 compases con metrónomo a 70 BPM. Sin mirar las teclas.",
+      "Cambiar de tónica según indicaciones del director (señas) cada 4 compases sin interrumpir el colchón armónico.",
     duracion: "10 min",
     dificultad: "Intenso",
     color: "from-violet-500/20 to-fuchsia-500/10 ring-violet-400/25",
   },
   {
     id: "canto-piano",
-    titulo: 'Desafío "Canto + Piano"',
-    emoji: "🎤",
+    titulo: 'Disociación Canto/Toque',
+    emoji: "🎙️",
     descripcion:
-      "Cantar una estrofa mientras la mano izquierda mantiene un patrón de bajo fijo. Ideal para quien pierde el ritmo al cantar.",
+      "Cantar la línea melódica mientras se ejecuta un patrón de arpegio en semicorcheas. Elimina la dependencia de tocar la melodía.",
     duracion: "1 canción",
     dificultad: "Medio",
     color: "from-amber-500/20 to-orange-500/10 ring-amber-400/25",
@@ -144,7 +186,7 @@ const estadoNivelStyles: Record<
   completado: {
     ring: "ring-emerald-400/40",
     badge: "bg-emerald-500/15 text-emerald-200 ring-emerald-400/30",
-    badgeText: "Desbloqueado",
+    badgeText: "Verificado",
     dot: "bg-emerald-400",
   },
   activo: {
@@ -156,7 +198,7 @@ const estadoNivelStyles: Record<
   bloqueado: {
     ring: "ring-slate-300/80 dark:ring-zinc-700/80",
     badge: "bg-slate-100 text-slate-500 ring-slate-300/80 dark:bg-zinc-800/80 dark:text-zinc-500 dark:ring-zinc-700/80",
-    badgeText: "Próximamente",
+    badgeText: "Pendiente",
     dot: "bg-slate-400 dark:bg-zinc-600",
   },
 };
@@ -168,9 +210,9 @@ function fluidezColor(pct: number) {
 }
 
 function fluidezLabel(pct: number) {
-  if (pct >= 75) return "Fluyendo";
-  if (pct >= 50) return "En progreso";
-  return "Construyendo base";
+  if (pct >= 75) return "Óptimo";
+  if (pct >= 50) return "En desarrollo";
+  return "Deficiente";
 }
 
 export default function MaestroPage() {
@@ -203,21 +245,19 @@ export default function MaestroPage() {
         <header className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-violet-300/80">
-              Método Selah Keys
+              Gestión de Ensamble Musical
             </p>
             <h1 className="mt-2 text-balance bg-gradient-to-r from-slate-800 to-slate-900 bg-clip-text text-3xl font-bold tracking-tight text-transparent sm:text-4xl dark:from-zinc-50 dark:to-zinc-200">
-              Panel del Maestro — Piano Creativo para Principiantes
+              Panel del Director — Métricas de Competencia
             </h1>
             <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-600 sm:text-base dark:text-zinc-400">
-              Enseña a tus amigos desde cero con un camino visual, retos
-              divertidos y seguimiento gamificado. Sin abrumar con teoría: primero
-              suena, luego se entiende.
+              Evaluación técnica y seguimiento ministerial. Control de dinámicas, lectura de partituras y adaptación al ensamble para músicos en formación.
             </p>
           </div>
           <div className="flex shrink-0 items-center gap-2 rounded-full border border-slate-200/80 bg-white px-4 py-2 text-sm shadow-sm shadow-slate-200/40 dark:border-zinc-800 dark:bg-zinc-900/60 dark:shadow-none">
-            <span className="text-lg">🎹</span>
+            <span className="text-lg">🎛️</span>
             <span className="font-medium text-slate-700 dark:text-zinc-300">
-              {amigos.length} amigos aprendiendo
+              {amigos.length} músicos en fila
             </span>
           </div>
         </header>
@@ -227,14 +267,14 @@ export default function MaestroPage() {
           <div className="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <h2 className="text-lg font-semibold text-slate-900 dark:text-zinc-50">
-                Ruta de Aprendizaje Creativo
+                Módulos de Formación
               </h2>
               <p className="mt-1 text-sm text-slate-600 dark:text-zinc-500">
-                El método paso a paso — desbloquea niveles como en un videojuego.
+                Progreso técnico exigido antes de integrarse al ensamble principal.
               </p>
             </div>
             <span className="w-fit rounded-full bg-violet-500/15 px-3 py-1 text-xs font-semibold text-violet-200 ring-1 ring-violet-400/30">
-              Nivel 2 activo con el grupo
+              Módulo 2 en ejecución
             </span>
           </div>
 
@@ -273,7 +313,7 @@ export default function MaestroPage() {
                           </span>
                           <div>
                             <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:text-zinc-500">
-                              Nivel {nivel.nivel}
+                              Módulo {nivel.nivel}
                             </p>
                             <h3 className="text-base font-semibold text-slate-900 sm:text-lg dark:text-zinc-50">
                               {nivel.titulo}
@@ -292,12 +332,6 @@ export default function MaestroPage() {
                       <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-zinc-400">
                         {nivel.descripcion}
                       </p>
-                      {nivel.estado === "activo" && (
-                        <p className="mt-3 inline-flex items-center gap-1.5 rounded-lg bg-sky-500/10 px-3 py-1.5 text-xs font-medium text-sky-200 ring-1 ring-sky-400/20">
-                          <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-sky-400" />
-                          Carlos y Charly están aquí ahora
-                        </p>
-                      )}
                     </div>
                   </li>
                 );
@@ -306,16 +340,16 @@ export default function MaestroPage() {
           </div>
         </section>
 
-        {/* 2. Panel de seguimiento gamificado */}
+        {/* 2. Panel de seguimiento Técnico */}
         <section className="rounded-2xl border border-slate-200/80 bg-white shadow-xl shadow-slate-200/50 backdrop-blur dark:border-zinc-800/90 dark:bg-zinc-900/40 dark:shadow-[0_0_0_1px_rgba(255,255,255,0.02)]">
           <div className="border-b border-slate-200/80 px-5 py-4 dark:border-zinc-800/80 sm:px-6">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
               <div>
                 <h2 className="text-lg font-semibold text-slate-900 dark:text-zinc-50">
-                  Panel de Seguimiento de Amigos
+                  Monitor de Competencias
                 </h2>
                 <p className="mt-1 text-sm text-slate-600 dark:text-zinc-500">
-                  Retos activos, fluidez y bloqueos creativos — todo en un vistazo.
+                  Selecciona a un músico para evaluar sus áreas de oportunidad ministerial.
                 </p>
               </div>
               <div className="flex flex-wrap gap-2">
@@ -338,25 +372,37 @@ export default function MaestroPage() {
           </div>
 
           {amigoActivo && (
-            <div className="border-b border-slate-200/60 bg-gradient-to-r from-violet-500/5 to-transparent px-5 py-4 dark:border-zinc-800/60 sm:px-6">
-              <p className="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-zinc-500">
-                Vista rápida — {amigoActivo.nombre}
-              </p>
-              <div className="mt-2 flex flex-wrap items-center gap-4">
-                <div className="flex items-center gap-2">
-                  <span className="text-2xl font-bold tabular-nums text-slate-900 dark:text-zinc-50">
-                    {amigoActivo.fluidez}%
+            <div className="border-b border-slate-200/60 bg-zinc-50/50 px-5 py-6 dark:border-zinc-800/60 dark:bg-zinc-950/30 sm:px-6">
+              <div className="flex items-center justify-between mb-4">
+                <p className="text-sm font-semibold text-slate-900 dark:text-zinc-100">
+                  Radar Técnico: {amigoActivo.nombre}
+                </p>
+                <div className="flex items-center gap-3">
+                  <span className="rounded-full bg-slate-200/80 px-2.5 py-1 text-xs text-slate-600 dark:bg-zinc-800/80 dark:text-zinc-400">
+                    Módulo actual: {amigoActivo.nivelActual}
                   </span>
-                  <span className="text-xs text-zinc-500">fluidez</span>
+                  <span className="text-2xl font-bold tabular-nums text-slate-900 dark:text-zinc-50">
+                    {amigoActivo.fluidez}% <span className="text-xs font-normal text-zinc-500">rendimiento global</span>
+                  </span>
                 </div>
-                <span className="rounded-full bg-slate-200/80 px-2.5 py-1 text-xs text-slate-600 dark:bg-zinc-800/80 dark:text-zinc-400">
-                  Nivel {amigoActivo.nivelActual} del método
-                </span>
-                <span
-                  className={`text-xs font-medium ${amigoActivo.fluidez >= 75 ? "text-emerald-300" : amigoActivo.fluidez >= 50 ? "text-amber-300" : "text-rose-300"}`}
-                >
-                  {fluidezLabel(amigoActivo.fluidez)}
-                </span>
+              </div>
+              
+              {/* Grid de 10 competencias */}
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-2">
+                {amigoActivo.competencias.map((comp) => (
+                  <div key={comp.nombre} className="flex flex-col gap-1.5 rounded-lg border border-slate-200/50 bg-white p-3 dark:border-zinc-800/50 dark:bg-zinc-900/50">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="font-medium text-slate-700 dark:text-zinc-300">{comp.nombre}</span>
+                      <span className="font-semibold text-slate-900 dark:text-zinc-100">{comp.valor}%</span>
+                    </div>
+                    <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-100 dark:bg-zinc-800">
+                      <div
+                        className={`h-full rounded-full bg-gradient-to-r transition-all duration-500 ${fluidezColor(comp.valor)}`}
+                        style={{ width: `${comp.valor}%` }}
+                      />
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           )}
@@ -366,16 +412,13 @@ export default function MaestroPage() {
               <thead>
                 <tr className="border-b border-slate-200/90 bg-slate-50/80 dark:border-zinc-800/90 dark:bg-zinc-950/40">
                   <th className="whitespace-nowrap px-5 py-3 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-zinc-500 sm:px-6">
-                    Nombre del amigo
+                    Músico
                   </th>
                   <th className="min-w-[220px] px-4 py-3 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-zinc-500">
-                    Reto activo
-                  </th>
-                  <th className="min-w-[160px] px-4 py-3 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-zinc-500">
-                    Barra de fluidez
+                    Foco de corrección
                   </th>
                   <th className="min-w-[240px] px-5 py-3 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-zinc-500 sm:px-6">
-                    Bloqueo creativo actual
+                    Notas de Director (Observaciones técnicas)
                   </th>
                 </tr>
               </thead>
@@ -395,8 +438,8 @@ export default function MaestroPage() {
                           <p className="font-semibold text-slate-900 dark:text-zinc-100">
                             {amigo.nombre}
                           </p>
-                          <p className="text-xs text-zinc-500">
-                            Nivel {amigo.nivelActual}
+                          <p className={`text-xs font-medium ${amigo.fluidez >= 75 ? "text-emerald-500" : amigo.fluidez >= 50 ? "text-amber-500" : "text-rose-500"}`}>
+                            {fluidezLabel(amigo.fluidez)}
                           </p>
                         </div>
                       </div>
@@ -405,24 +448,6 @@ export default function MaestroPage() {
                       <span className="inline-flex rounded-lg bg-slate-100 px-2.5 py-1.5 text-xs font-medium leading-snug text-slate-700 ring-1 ring-slate-200/80 dark:bg-zinc-800/60 dark:text-zinc-300 dark:ring-zinc-700/80">
                         {amigo.retoActivo}
                       </span>
-                    </td>
-                    <td className="px-4 py-4">
-                      <div className="flex flex-col gap-1.5">
-                        <div className="flex items-center justify-between gap-2">
-                          <span className="text-xs font-semibold tabular-nums text-slate-700 dark:text-zinc-300">
-                            {amigo.fluidez}%
-                          </span>
-                          <span className="text-[10px] text-zinc-600">
-                            {fluidezLabel(amigo.fluidez)}
-                          </span>
-                        </div>
-                        <div className="h-2 overflow-hidden rounded-full bg-slate-200 dark:bg-zinc-800">
-                          <div
-                            className={`h-full rounded-full bg-gradient-to-r transition-all duration-500 ${fluidezColor(amigo.fluidez)}`}
-                            style={{ width: `${amigo.fluidez}%` }}
-                          />
-                        </div>
-                      </div>
                     </td>
                     <td className="px-5 py-4 sm:px-6">
                       <textarea
@@ -437,9 +462,9 @@ export default function MaestroPage() {
                           );
                         }}
                         onClick={(e) => e.stopPropagation()}
-                        rows={2}
+                        rows={3}
                         className="w-full resize-none rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs leading-relaxed text-slate-700 outline-none transition focus:border-violet-500/40 focus:ring-2 focus:ring-violet-500/15 dark:border-zinc-800 dark:bg-zinc-950/50 dark:text-zinc-300"
-                        placeholder="¿Qué le cuesta entender hoy?"
+                        placeholder="Diagnóstico técnico del ensayo..."
                       />
                     </td>
                   </tr>
@@ -449,21 +474,21 @@ export default function MaestroPage() {
           </div>
         </section>
 
-        {/* 3. Generador de retos caseros */}
+        {/* 3. Asignación de prácticas */}
         <section className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xl shadow-slate-200/50 backdrop-blur dark:border-zinc-800/90 dark:bg-zinc-900/35 dark:shadow-[0_0_0_1px_rgba(255,255,255,0.02)] sm:p-6">
           <div className="flex flex-col gap-2 border-b border-slate-200/80 pb-5 dark:border-zinc-800/80 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <h2 className="text-lg font-semibold text-slate-900 dark:text-zinc-50">
-                Generador de Retos Caseros
+                Asignador de Prácticas
               </h2>
               <p className="mt-1 text-sm text-slate-600 dark:text-zinc-500">
-                Creador de desafíos — asigna tareas divertidas con un clic.
+                Envíales directrices enfocadas en erradicar malos hábitos de ensamble.
               </p>
             </div>
             {amigoActivo && (
               <p className="text-xs text-zinc-500">
-                Asignando a:{" "}
-                <span className="font-semibold text-violet-200">
+                Instruyendo a:{" "}
+                <span className="font-semibold text-violet-400 dark:text-violet-300">
                   {amigoActivo.nombre}
                 </span>
               </p>
@@ -482,18 +507,18 @@ export default function MaestroPage() {
                     <span className="text-3xl" aria-hidden>
                       {reto.emoji}
                     </span>
-                    <span className="rounded-full bg-zinc-950/40 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-zinc-400">
-                      {reto.dificultad}
+                    <span className="rounded-full bg-zinc-950/40 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-zinc-800 dark:text-zinc-400">
+                      Nivel: {reto.dificultad}
                     </span>
                   </div>
                   <h3 className="mt-3 text-base font-semibold text-slate-900 dark:text-zinc-50">
                     {reto.titulo}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-zinc-400">
+                  <p className="mt-2 text-sm leading-relaxed text-slate-700 dark:text-zinc-400">
                     {reto.descripcion}
                   </p>
-                  <p className="mt-3 text-xs text-zinc-500">
-                    Duración sugerida: {reto.duracion}
+                  <p className="mt-3 text-xs font-medium text-slate-500 dark:text-zinc-500">
+                    Duración exigida: {reto.duracion}
                   </p>
                   <button
                     type="button"
@@ -501,13 +526,13 @@ export default function MaestroPage() {
                     disabled={asignado}
                     className={`mt-4 w-full rounded-full px-4 py-2.5 text-sm font-semibold transition ${
                       asignado
-                        ? "cursor-default bg-emerald-500/20 text-emerald-200 ring-1 ring-emerald-400/30"
+                        ? "cursor-default bg-emerald-500/20 text-emerald-800 ring-1 ring-emerald-400/30 dark:text-emerald-200"
                         : "bg-slate-900 text-white hover:bg-slate-800 active:scale-[0.98] dark:bg-zinc-100 dark:text-zinc-950 dark:hover:bg-white"
                     }`}
                   >
                     {asignado
-                      ? `✓ Asignado a ${amigoActivo?.nombre ?? "amigo"}`
-                      : `Asignar a ${amigoActivo?.nombre ?? "amigo"}`}
+                      ? `✓ Asignado a ${amigoActivo?.nombre ?? "músico"}`
+                      : `Asignar a ${amigoActivo?.nombre ?? "músico"}`}
                   </button>
                 </article>
               );
@@ -516,8 +541,8 @@ export default function MaestroPage() {
 
           {retosAsignados.length > 0 && (
             <div className="mt-6 rounded-xl border border-emerald-500/20 bg-emerald-500/5 px-4 py-3">
-              <p className="text-xs font-semibold uppercase tracking-wide text-emerald-300/90">
-                Retos asignados esta sesión
+              <p className="text-xs font-semibold uppercase tracking-wide text-emerald-700 dark:text-emerald-300/90">
+                Directrices activas
               </p>
               <ul className="mt-2 flex flex-wrap gap-2">
                 {retosAsignados.map((id) => {
